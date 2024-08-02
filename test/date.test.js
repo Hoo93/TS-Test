@@ -47,4 +47,17 @@ describe('Date Test', () => {
     expect(sut).toBeNaN();
     expect(isNaN(sut)).toBeTruthy();
   });
+
+  describe('Date to String Test', () => {
+    it('toISOString', () => {
+      // Given
+      const date = new Date('2024-07-01T00:00:00.000Z');
+
+      // When
+      const sut = date.toISOString();
+
+      // Then
+      expect(sut).toBe('2024-07-01T00:00:00.000Z');
+    });
+  });
 });
