@@ -16,12 +16,15 @@ interface Comment {
   content: string;
 }
 
-export const CommentFactory = defineFactory<Comment>('comment', ({ faker, isStubbed }) => ({
+export const CommentFactory: any = defineFactory<Comment>('comment', ({ faker, isStubbed }) => ({
   id: +faker.random.numeric(4),
   content: faker.random.alpha(6),
-})).build();
+}))
+  .belongsTo('user', () => UserFactory)
+  .belongsTo('post', () => PostFactory)
+  .build();
 
-export const PostFactory = defineFactory<Post>('post', ({ faker, isStubbed }) => ({
+export const PostFactory: any = defineFactory<Post>('post', ({ faker, isStubbed }) => ({
   id: +faker.random.numeric(4),
   content: faker.random.alpha(6),
 }))
@@ -31,7 +34,7 @@ export const PostFactory = defineFactory<Post>('post', ({ faker, isStubbed }) =>
   })
   .build();
 
-export const UserFactory = defineFactory<User>('user', ({ faker, isStubbed }) => ({
+export const UserFactory: any = defineFactory<User>('user', ({ faker, isStubbed }) => ({
   id: +faker.random.numeric(4),
   password: faker.random.alpha(6),
   name: faker.random.alpha(6),
