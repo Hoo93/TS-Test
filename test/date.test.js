@@ -60,4 +60,30 @@ describe('Date Test', () => {
       expect(sut).toBe('2024-07-01T00:00:00.000Z');
     });
   });
+
+  describe('day Of week Test', () => {
+    it('Date From DateString', () => {
+      // Given
+      const dateString = '2024-08-07';
+
+      // When
+      const date = new Date(dateString);
+
+      // Then
+      expect(date.getFullYear()).toBe(2024);
+      expect(date.getMonth()).toBe(7);
+      expect(date.getDate()).toBe(7);
+    });
+
+    it('Day From DateString', () => {
+      // Given
+      const dateString = '2024-08-07';
+
+      // When
+      const date = new Date(dateString);
+
+      // Then
+      expect(date.getDay()).toBe(3);
+    });
+  });
 });
