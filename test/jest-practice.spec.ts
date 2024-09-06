@@ -49,7 +49,9 @@ describe('objectContaining/ toMatchObject Test', () => {
     expect(products).toEqual(expect.arrayContaining([expect.objectContaining({ name: 'Laptop' })])); // SUCCESS
 
     // toMatchObject 를 사용한 테스트
-    expect(products).toMatchObject([{ id: 1, name: 'Laptop', price: 1000 }]); // FAIL
+    expect(products).toMatchObject([{ name: 'Laptop' }]); // FAIL
+    expect(products).toMatchObject([{ id: 1 }, { id: 2 }, { id: 3 }]); // SUCCESS
+    expect(products).toMatchObject([{ id: 1 }, { id: 3 }, { id: 2 }]); // FAIL
 
     // 만약 나였다면 ... ?
     const result = products.find((product) => product.name === 'Laptop');
