@@ -1,4 +1,4 @@
-import { isAfter } from 'date-fns';
+import { format, isAfter } from 'date-fns';
 
 describe('date-fns Test', () => {
   describe('isAfter Test', () => {
@@ -37,6 +37,20 @@ describe('date-fns Test', () => {
       // Then
       // 2000 년은 2024년 보다 후가 아니므로 false return
       expect(sut).toBe(false);
+    });
+  });
+
+  describe('format Test', () => {
+    it.each([
+      [new Date('2024-08-01T00:00:00.000Z'), '2024년 8월 1일'],
+      [new Date('2024-11-12T00:00:00.000Z'), '2024년 11월 12일'],
+      [new Date('2024-12-31T15:00:00.000Z'), '2025년 1월 1일'],
+    ])('%s 를 "%s" 로 포맷한다.', (date, expected) => {
+      // Given
+      // When
+      const result = format(date, 'yyyy년 M월 d일');
+      // Then
+      expect(result).toBe(expected);
     });
   });
 });
