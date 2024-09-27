@@ -1,4 +1,4 @@
-import { format, isAfter } from 'date-fns';
+import { format, isAfter, set } from 'date-fns';
 
 describe('date-fns Test', () => {
   describe('isAfter Test', () => {
@@ -51,6 +51,31 @@ describe('date-fns Test', () => {
       const result = format(date, 'yyyy년 M월 d일');
       // Then
       expect(result).toBe(expected);
+    });
+  });
+
+  describe('set Test', () => {
+    it('set 함수는 입력한 값의 Date 객체를 생성한다.', () => {
+      // Given
+      const now = new Date('2024-08-31T00:00:00Z');
+
+      // When
+      const result = set(now, { hours: 10, minutes: 57 });
+
+      // Then
+      expect(result).toStrictEqual(new Date('2024-08-31T10:57:00'));
+    });
+
+    it('set 함수는 새로운 Date 객체를 생성한다.', () => {
+      // Given
+      const now = new Date('2024-08-31T00:00:00Z');
+
+      // When
+      const result = set(now, { hours: 10, minutes: 57 });
+
+      // Then
+      expect(result).not.toStrictEqual(now);
+      expect(now).toStrictEqual(new Date('2024-08-31T00:00:00Z'));
     });
   });
 });
