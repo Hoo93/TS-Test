@@ -38,6 +38,19 @@ describe('date-fns Test', () => {
       // 2000 년은 2024년 보다 후가 아니므로 false return
       expect(sut).toBe(false);
     });
+
+    it('같은 경우 false 를 리턴한다.', () => {
+      // Given
+      const date_a = new Date(2000, 1, 1);
+      const date_b = new Date(2000, 1, 1);
+
+      // When
+      const sut = isAfter(date_a, date_b);
+
+      // Then
+      // 2000 년은 2024년 보다 후가 아니므로 false return
+      expect(sut).toBe(false);
+    });
   });
 
   describe('format Test', () => {
