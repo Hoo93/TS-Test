@@ -1,4 +1,4 @@
-import { format, isAfter, set } from 'date-fns';
+import { addSeconds, format, isAfter, isWithinInterval, set } from 'date-fns';
 
 describe('date-fns Test', () => {
   describe('isAfter Test', () => {
@@ -89,6 +89,22 @@ describe('date-fns Test', () => {
       // Then
       expect(result).not.toStrictEqual(now);
       expect(now).toStrictEqual(new Date('2024-08-31T00:00:00Z'));
+    });
+  });
+
+  describe('isWithinInterval', () => {
+    it('start 이상 end 이하를 true 로 리턴한다.', () => {
+      // Given
+      const start = new Date(2024, 1, 22);
+      const end = new Date(2024, 2, 22);
+
+      // When
+      const startResult = isWithinInterval(start, { start, end });
+      const endResult = isWithinInterval(end, { start, end });
+
+      // Then
+      expect(startResult).toBe(true);
+      expect(endResult).toBe(true);
     });
   });
 });
