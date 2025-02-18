@@ -26,6 +26,7 @@
     "@protobuf-ts/runtime-rpc": "^2.9.4",
     "date-fns": "2.27.0",
     "google-protobuf": "^3.21.4",
+    "lexorank": "^1.0.5",
     "mysql": "^2.18.1",
     "mysql2": "^3.11.0",
     "pg": "^8.12.0",
