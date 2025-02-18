@@ -55,15 +55,44 @@ describe('LexoRank PlayGround', () => {
     });
   });
 
-  it('parse makes string to LexoRank', async () => {
-    // Given
-    const stringRank = '1|abcdef:5';
+  describe('Parse', () => {
+    it('문자열을 LexoRank 로 변환한다.', () => {
+      // Given
+      const stringRank = '1|a00000';
 
-    // When
-    const parsedRank = LexoRank.parse(stringRank);
+      // When
+      const parsedRank = LexoRank.parse(stringRank);
 
-    // Then
-    expect(parsedRank).toBeInstanceOf(LexoRank);
+      // Then
+      expect(parsedRank).toBeInstanceOf(LexoRank);
+      expect(parsedRank.toString()).toBe('1|a00000:');
+    });
+
+    it('d|d{6}: 형태의 string 으로 변환한다.', () => {
+      // Given
+      const stringRank = '1|a';
+
+      const lexoRegex = /[0-2]|[0-9a-z]{6}:/;
+
+      // When
+      const parsedRank = LexoRank.parse(stringRank);
+
+      // Then
+      expect(parsedRank).toBeInstanceOf(LexoRank);
+      expect(parsedRank.toString()).toMatch(lexoRegex);
+    });
+
+    it('| 뒤에 6자리가 아닌 경우 앞에 모자른 만큼 0 을 추가한다.', () => {
+      // Given
+      const stringRank = '1|a';
+
+      // When
+      const parsedRank = LexoRank.parse(stringRank);
+
+      // Then
+      expect(parsedRank).toBeInstanceOf(LexoRank);
+      expect(parsedRank.toString()).toBe('1|00000a:');
+    });
   });
 
   describe('LexoRank Compare', () => {
