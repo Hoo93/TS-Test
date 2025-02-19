@@ -145,5 +145,56 @@ describe('LexoRank PlayGround', () => {
       // Then
       expect(result.toString()).toBe('0|000000:11111111111111111111111111111111111111111111111111111111111111111111111i'); // 1 다음 2 인데 겹치므로 2 번째 자리로 이동하고 0~z 중 가운데 값인 i 를 리턴
     });
+
+    it('같은 lexoRank 값 사이의 값을 구할 경우 에러가 발생한다.', () => {
+      // Given
+      const rank1 = LexoRank.parse('0|000000:1');
+      const rank2 = LexoRank.parse('0|000000:1');
+
+      // When, Then
+      expect(() => {
+        rank2.between(rank1);
+      }).toThrow();
+    });
+  });
+
+  describe('genNext', () => {
+    it('다음 lexoRank 값을 생성한다.', () => {
+      // Given
+      const lexo = LexoRank.parse('0|000000:1');
+
+      // When
+      const nextLexo = lexo.genNext();
+      const next_2_Lexo = nextLexo.genNext();
+      const next_3_Lexo = next_2_Lexo.genNext();
+      const next_4_Lexo = next_3_Lexo.genNext();
+      const next_5_Lexo = next_4_Lexo.genNext();
+
+      // Then
+      expect(nextLexo.toString()).toBe('0|000009:');
+      expect(next_2_Lexo.toString()).toBe('0|00000h:');
+      expect(next_3_Lexo.toString()).toBe('0|00000p:');
+      expect(next_4_Lexo.toString()).toBe('0|00000x:');
+      expect(next_5_Lexo.toString()).toBe('0|000015:');
+    });
+
+    it('fixed variable 의 마지막 자리수를 9~10 증가시킨 값을 리턴한다.', () => {
+      // Given
+      const lexo = LexoRank.parse('0|000000:1');
+
+      // When
+      const nextLexo = lexo.genNext();
+      const next_2_Lexo = nextLexo.genNext();
+      const next_3_Lexo = next_2_Lexo.genNext();
+      const next_4_Lexo = next_3_Lexo.genNext();
+      const next_5_Lexo = next_4_Lexo.genNext();
+
+      // Then
+      expect(nextLexo.toString()).toBe('0|000009:');
+      expect(next_2_Lexo.toString()).toBe('0|00000h:');
+      expect(next_3_Lexo.toString()).toBe('0|00000p:');
+      expect(next_4_Lexo.toString()).toBe('0|00000x:');
+      expect(next_5_Lexo.toString()).toBe('0|000015:');
+    });
   });
 });
