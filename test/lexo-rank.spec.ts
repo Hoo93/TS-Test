@@ -1,4 +1,5 @@
 import { LexoRank } from 'lexorank';
+import { eachDayOfInterval, parse } from 'date-fns';
 
 describe('LexoRank PlayGround', () => {
   it('LexoRank min/max', async () => {
@@ -93,6 +94,16 @@ describe('LexoRank PlayGround', () => {
       expect(parsedRank).toBeInstanceOf(LexoRank);
       expect(parsedRank.toString()).toBe('1|00000a:');
     });
+
+    it('적절하지 않은 형태인 경우 에러를 리턴한다.', () => {
+      // Given
+      const stringRank = '1';
+
+      // When, Then
+      expect(() => {
+        LexoRank.parse(stringRank);
+      }).toThrow();
+    });
   });
 
   describe('LexoRank Compare', () => {
@@ -146,7 +157,7 @@ describe('LexoRank PlayGround', () => {
       expect(result.toString()).toBe('0|000000:11111111111111111111111111111111111111111111111111111111111111111111111i'); // 1 다음 2 인데 겹치므로 2 번째 자리로 이동하고 0~z 중 가운데 값인 i 를 리턴
     });
 
-    it('같은 lexoRank 값 사이의 값을 구할 경우 에러가 발생한다.', () => {
+    it('같은 fixedKey 값 사이의 값을 구할 경우 에러가 발생한다.', () => {
       // Given
       const rank1 = LexoRank.parse('0|000000:1');
       const rank2 = LexoRank.parse('0|000000:1');
@@ -155,6 +166,18 @@ describe('LexoRank PlayGround', () => {
       expect(() => {
         rank2.between(rank1);
       }).toThrow();
+    });
+
+    it('fixedKey 가 같고 variableKey 가 다른 경우', () => {
+      // Given
+      const rank1 = LexoRank.parse('0|000000:');
+      const rank2 = LexoRank.parse('0|000000:1');
+
+      // When
+      const result = rank2.between(rank1);
+
+      // Then
+      expect(result).toBeDefined();
     });
   });
 
@@ -196,5 +219,19 @@ describe('LexoRank PlayGround', () => {
       expect(next_4_Lexo.toString()).toBe('0|00000x:');
       expect(next_5_Lexo.toString()).toBe('0|000015:');
     });
+  });
+
+  it('eachDayOfInterval', () => {
+    // Given
+    const date = '20240211';
+
+    // When
+    const result = eachDayOfInterval({
+      start: parse(date, 'yyyyMMdd', new Date()),
+      end: parse(date, 'yyyyMMdd', new Date()),
+    });
+
+    // Then
+    expect(result).toStrictEqual([new Date(date)]);
   });
 });
