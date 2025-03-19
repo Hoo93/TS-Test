@@ -220,18 +220,4 @@ describe('LexoRank PlayGround', () => {
       expect(next_5_Lexo.toString()).toBe('0|000015:');
     });
   });
-
-  it('eachDayOfInterval', () => {
-    // Given
-    const date = '20240211';
-
-    // When
-    const result = eachDayOfInterval({
-      start: parse(date, 'yyyyMMdd', new Date()),
-      end: parse(date, 'yyyyMMdd', new Date()),
-    });
-
-    // Then
-    expect(result).toStrictEqual([new Date(date)]);
-  });
 });

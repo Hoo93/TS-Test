@@ -1,4 +1,4 @@
-import { addSeconds, format, isAfter, isWithinInterval, set } from 'date-fns';
+import { addSeconds, eachDayOfInterval, format, isAfter, isWithinInterval, set } from 'date-fns';
 
 describe('date-fns Test', () => {
   describe('isAfter Test', () => {
@@ -105,6 +105,25 @@ describe('date-fns Test', () => {
       // Then
       expect(startResult).toBe(true);
       expect(endResult).toBe(true);
+    });
+  });
+
+  describe('eachDayOfInterval', () => {
+    it('A~B 사이의 startOfDay를 리턴한다.', () => {
+      // Given
+
+      // When
+      const result = eachDayOfInterval({
+        start: new Date('2024-02-13T00:00:00Z'),
+        end: new Date('2024-02-15T00:00:00Z'),
+      });
+
+      // Then
+      expect(result).toMatchObject([
+        new Date('2024-02-12T15:00:00.000Z'),
+        new Date('2024-02-13T15:00:00.000Z'),
+        new Date('2024-02-14T15:00:00.000Z'),
+      ]);
     });
   });
 });

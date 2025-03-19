@@ -85,5 +85,19 @@ describe('Date Test', () => {
       // Then
       expect(date.getDay()).toBe(3);
     });
+
+    it('yyyymmdd DateString to Date', () => {
+      // Given
+      const yyyymmdd = '20241008';
+
+      // When
+      const date = new Date(yyyymmdd.substring(0, 4) + '-' + yyyymmdd.substring(4, 6) + '-' + yyyymmdd.substring(6, 8));
+
+      // Then
+      expect(date.getFullYear()).toBe(2024);
+      expect(date.getMonth()).toBe(9);
+      expect(date.getDate()).toBe(8);
+      expect(date.getDay()).toBe(2);
+    });
   });
 });
