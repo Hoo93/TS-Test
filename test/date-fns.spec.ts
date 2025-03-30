@@ -1,4 +1,4 @@
-import { addSeconds, eachDayOfInterval, format, isAfter, isWithinInterval, set } from 'date-fns';
+import { addSeconds, eachDayOfInterval, format, isAfter, isBefore, isWithinInterval, set } from 'date-fns';
 
 describe('date-fns Test', () => {
   describe('isAfter Test', () => {
@@ -49,6 +49,70 @@ describe('date-fns Test', () => {
 
       // Then
       // 2000 년은 2024년 보다 후가 아니므로 false return
+      expect(sut).toBe(false);
+    });
+  });
+
+  describe('isBefore Test', () => {
+    it('isBefore(date_a, date_b) 의 형태로 비교한다.', () => {
+      // Given
+      const date_a = new Date(2000, 1, 1);
+      const date_b = new Date(2024, 7, 22);
+
+      // When
+      const sut = isBefore(date_a, date_b);
+
+      // Then
+      expect(sut).toBe(true);
+    });
+
+    it('boolean 값을 리턴한다.', () => {
+      // Given
+      const date_a = new Date(2020, 5, 1);
+      const date_b = new Date(2021, 5, 1);
+
+      // When
+      const sut = isBefore(date_a, date_b);
+
+      // Then
+      expect(typeof sut).toBe('boolean');
+    });
+
+    it('앞의 날짜를 기준으로 isBefore 를 판별한다.', () => {
+      // Given
+      const date_a = new Date(2020, 5, 1);
+      const date_b = new Date(2021, 5, 1);
+
+      // When
+      const sut = isBefore(date_a, date_b);
+
+      // Then
+      // 2020년은 2021년보다 전이므로 true 리턴
+      expect(sut).toBe(true);
+    });
+
+    it('같은 경우 false 를 리턴한다.', () => {
+      // Given
+      const date_a = new Date(2024, 7, 22);
+      const date_b = new Date(2024, 7, 22);
+
+      // When
+      const sut = isBefore(date_a, date_b);
+
+      // Then
+      // 날짜가 같으므로 false 리턴
+      expect(sut).toBe(false);
+    });
+
+    it('date_a 가 date_b 보다 이후이면 false 를 리턴한다.', () => {
+      // Given
+      const date_a = new Date(2025, 0, 1); // 2025-01-01
+      const date_b = new Date(2024, 11, 31); // 2024-12-31
+
+      // When
+      const sut = isBefore(date_a, date_b);
+
+      // Then
       expect(sut).toBe(false);
     });
   });
